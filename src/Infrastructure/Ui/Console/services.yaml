@@ -1,0 +1,18 @@
+parameters:
+
+services:  
+  rover_repository_service:
+    class: \Infrastructure\Persistence\InMemory\InMemoryRoverRepository
+  rover_dto_service:
+    class: \Application\DataTransformer\RoverDtoDataTransformer
+  status_rover_data_transformer_service:
+    class: \Application\DataTransformer\StatusRoverDataTransformer
+  land_rover_service:
+    class:  \Application\Service\LandRoverService
+    arguments: ['@rover_repository_service', '@rover_dto_service']
+  move_rover_service:
+    class: \Application\Service\MoveRoverService
+    arguments: ['@rover_repository_service', '@rover_dto_service']
+  landed_rovers_status_service:
+    class: \Application\Service\LandedRoversStatusService
+    arguments: ['@rover_repository_service', '@status_rover_data_transformer_service']
